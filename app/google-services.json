@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "709939155241",
+    "project_id": "absar1-70459",
+    "storage_bucket": "absar1-70459.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:709939155241:android:3c6aae34e8e82305702738",
+        "android_client_info": {
+          "package_name": "com.example.absar1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "709939155241-2kgb4juik1rbdc8g1s7gienua07inu04.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDR27dwG0R-isi_EnL2BuzdgbYxU3yQb1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "709939155241-2kgb4juik1rbdc8g1s7gienua07inu04.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
