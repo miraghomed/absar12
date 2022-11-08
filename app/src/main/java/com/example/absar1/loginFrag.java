@@ -2,6 +2,7 @@ package com.example.absar1;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -9,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +23,7 @@ import android.widget.EditText;
 public class loginFrag extends Fragment {
     private EditText etUsername,etPassword;
     private Button btnLogin;
+    private FirebaseServices fbs;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,7 +87,17 @@ public class loginFrag extends Fragment {
             public void onClick(View view) {
                String username=etUsername.getText().toString();
                String password=etPassword.getText().toString();
+               fbs.getAuth().signInWithEmailAndPassword(username, password)
+                       .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
 
+                                } else {
+                                    // PUT YOUR CODE HERE
+                                }
+                            }
+                        });
             }
         });
     }
