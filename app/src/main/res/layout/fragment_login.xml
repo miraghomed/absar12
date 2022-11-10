@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,29 +16,36 @@
             android:id="@+id/etUserFL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="134dp"
             android:ems="10"
             android:inputType="textPersonName"
+            android:minHeight="48dp"
             android:text="username..."
-            tools:layout_editor_absoluteX="100dp"
-            tools:layout_editor_absoluteY="134dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/etPassFL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="47dp"
             android:ems="10"
             android:inputType="textPersonName"
+            android:minHeight="48dp"
             android:text="password..."
-            tools:layout_editor_absoluteX="100dp"
-            tools:layout_editor_absoluteY="226dp" />
+            app:layout_constraintStart_toStartOf="@+id/etUserFL"
+            app:layout_constraintTop_toBottomOf="@+id/etUserFL" />
 
         <Button
             android:id="@+id/btnLogFL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
             android:text="LOG IN"
-            tools:layout_editor_absoluteX="161dp"
-            tools:layout_editor_absoluteY="341dp" />
+            app:layout_constraintEnd_toEndOf="@+id/etPassFL"
+            app:layout_constraintStart_toStartOf="@+id/etPassFL"
+            app:layout_constraintTop_toBottomOf="@+id/etPassFL" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

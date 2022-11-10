@@ -7,6 +7,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +20,9 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class SignUp extends Fragment {
+    private EditText etUsernameS,etPasswordS;
+    private Button btnSignup;
+    private FirebaseServices fbs;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,4 +70,34 @@ public class SignUp extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_sign_up, container, false);
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        connectComponents();
+    }
+
+    private void connectComponents() {
+        etUsernameS=getView().findViewById(R.id.etUserFL);
+        etPasswordS=getView().findViewById(R.id.etPassFL);
+        btnSignup=getView().findViewById(R.id.btnLogFL);
+        btnSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String username=etUsernameS.getText().toString();
+                String password=etPasswordS.getText().toString();
+
+                if(username.trim().isEmpty()|| password.trim().isEmpty()){
+                    Toast.makeText(getActivity(), "some fields are missing!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+            }
+        });
+    }
+    public boolean isEmailValid(String username){
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher((CharSequence) etUsernameS);
+        return matcher.matches();    }
 }
