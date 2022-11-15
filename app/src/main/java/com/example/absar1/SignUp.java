@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  * create an instance of this fragment.
  */
 public class SignUp extends Fragment {
-    private EditText etUsernameS,etPasswordS;
+    private EditText etEmailS,etPasswordS;
     private Button btnSignup;
     private FirebaseServices fbs;
 
@@ -78,26 +78,48 @@ public class SignUp extends Fragment {
     }
 
     private void connectComponents() {
-        etUsernameS=getView().findViewById(R.id.etUserFL);
+        etEmailS=getView().findViewById(R.id.etEmailSF);
         etPasswordS=getView().findViewById(R.id.etPassFL);
         btnSignup=getView().findViewById(R.id.btnLogFL);
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username=etUsernameS.getText().toString();
+                String email=etEmailS.getText().toString();
                 String password=etPasswordS.getText().toString();
 
-                if(username.trim().isEmpty()|| password.trim().isEmpty()){
+                if(email.trim().isEmpty()|| password.trim().isEmpty()){
                     Toast.makeText(getActivity(), "some fields are missing!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!isEmailValid(email)){
+                    Toast.makeText(getActivity(), "email is incorrect", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!isPasswordValid(password)){
+                    Toast.makeText(getActivity(), "password is incorrect", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
             }
         });
     }
-    public boolean isEmailValid(String username){
+
+    private boolean isPasswordValid(String password) {
+        Pattern pattern;
+        Matcher matcher;
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        return matcher.matches();
+    }
+
+    public boolean isEmailValid(String email){
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher((CharSequence) etUsernameS);
-        return matcher.matches();    }
+        Matcher matcher = pattern.matcher((CharSequence) etEmailS);
+        return matcher.matches();
+    }
+
+
 }
