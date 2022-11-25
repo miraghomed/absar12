@@ -26,7 +26,7 @@
             android:id="@+id/etCaloriesRF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="21dp"
+            android:layout_marginTop="68dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Calories"
@@ -37,7 +37,7 @@
             android:id="@+id/etInstructionRF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Instructions"
@@ -48,7 +48,7 @@
             android:id="@+id/etPTimeRF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="21dp"
+            android:layout_marginTop="12dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Preparation Time"
@@ -71,6 +71,16 @@
             android:layout_height="wrap_content"
             android:text="Add"
             tools:layout_editor_absoluteX="161dp"
-            tools:layout_editor_absoluteY="536dp" />
+            tools:layout_editor_absoluteY="574dp" />
+
+        <EditText
+            android:id="@+id/etIngredientsRF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Ingredients"
+            tools:layout_editor_absoluteX="100dp"
+            tools:layout_editor_absoluteY="318dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

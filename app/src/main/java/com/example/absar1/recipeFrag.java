@@ -1,15 +1,25 @@
 package com.example.absar1;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,7 +28,7 @@ import android.widget.ImageView;
  */
 public class recipeFrag extends Fragment {
 
-    private EditText etName,etCalories,etPTime,etInstructions;
+    private EditText etName,etCalories,etPTime,etInstructions,etIngredients;
     private ImageView imgRecipe;
     private Button btnADD;
     private FirebaseServices fbs;
@@ -77,15 +87,38 @@ public class recipeFrag extends Fragment {
     }
     private void connectComponents() {
         etName =getView().findViewById(R.id.etNameRF);
+        etIngredients =getView().findViewById(R.id.etInstructionRF);
         etCalories=getView().findViewById(R.id.etCaloriesRF);
         etPTime=getView().findViewById(R.id.etPTimeRF);
         etInstructions=getView().findViewById(R.id.etInstructionRF);
         btnADD=getView().findViewById(R.id.btnAddRF);
-        imgRecipe=getView().findViewById(R.id.imgRecipeRF);
+        //imgRecipe=getView().findViewById(R.id.imgRecipeRF);
         btnADD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String name=etName.getText().toString();
+                String ingredients=etIngredients.getText().toString();
+                String calories=etCalories.getText().toString();
+                String time=etPTime.getText().toString();
+                String instructions=etInstructions.getText().toString();
+                //String img=imgRecipe.getText().toString();
+                recipe re = new recipe(name,ingredients,calories,time,instructions);
+                Map<String, recipe> Re= new HashMap<>();
 
+                fbs.getFire().collection("re").document("LA")
+                        .set(Re)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully written!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error writing document", e);
+                            }
+                        });
             }
         });
     }
