@@ -2,14 +2,21 @@ package com.example.absar1;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,7 +28,7 @@ import java.util.regex.Pattern;
  */
 public class SignUp extends Fragment {
     private EditText etEmailS,etPasswordS;
-    private Button btnSignup;
+    private Button btnSignup, btnLogin;
     private FirebaseServices fbs;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -81,6 +88,7 @@ public class SignUp extends Fragment {
         etEmailS=getView().findViewById(R.id.etEmailSF);
         etPasswordS=getView().findViewById(R.id.etPassFL);
         btnSignup=getView().findViewById(R.id.btnLogFL);
+        fbs = FirebaseServices.getInstance() ;
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,7 +108,19 @@ public class SignUp extends Fragment {
                     return;
                 }
 
+                fbs.getAuth().createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // PUT YOUR CODE HERE
+                                } else {
+                                    // PUT YOUR CODE HERE
+                                }
+                            }
+                        });
             }
+
         });
     }
 

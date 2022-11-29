@@ -92,6 +92,7 @@ public class recipeFrag extends Fragment {
         etPTime=getView().findViewById(R.id.etPTimeRF);
         etInstructions=getView().findViewById(R.id.etInstructionRF);
         btnADD=getView().findViewById(R.id.btnAddRF);
+        fbs = FirebaseServices.getInstance() ;
         //imgRecipe=getView().findViewById(R.id.imgRecipeRF);
         btnADD.setOnClickListener(new View.OnClickListener() {
             @Override

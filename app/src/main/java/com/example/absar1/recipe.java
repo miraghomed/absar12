@@ -3,8 +3,8 @@ package com.example.absar1;
 public class recipe {
     private String name;
     private String ingredient;
-    private int calories;
-    private int Ptime;
+    private String calories;
+    private String Ptime;
     private String instructions;
    // private String image;
 
@@ -35,17 +35,17 @@ public class recipe {
         this.name = name;
     }
 
-    public int getCalories() {
+    public String getCalories() {
         return calories;
     }
-    public void setCalories(int calories) {
+    public void setCalories(String calories) {
         this.calories = calories;
     }
 
-    public int getPtime() {
+    public String getPtime() {
         return Ptime;
     }
-    public void setPtime(int ptime) {
+    public void setPtime(String ptime) {
         Ptime = ptime;
     }
 

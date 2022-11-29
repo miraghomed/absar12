@@ -18,9 +18,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="134dp"
             android:ems="10"
+            android:hint="username..."
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:text="username..."
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,9 +31,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="47dp"
             android:ems="10"
+            android:hint="password..."
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:text="password..."
             app:layout_constraintStart_toStartOf="@+id/etUserFL"
             app:layout_constraintTop_toBottomOf="@+id/etUserFL" />
 
@@ -46,6 +46,17 @@
             app:layout_constraintEnd_toEndOf="@+id/etPassFL"
             app:layout_constraintStart_toStartOf="@+id/etPassFL"
             app:layout_constraintTop_toBottomOf="@+id/etPassFL" />
+
+        <TextView
+            android:id="@+id/Signuptv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="46dp"
+            android:autoText="false"
+            android:text="SIgnup"
+            app:layout_constraintStart_toStartOf="@+id/btnLogFL"
+            app:layout_constraintTop_toTopOf="@+id/btnLogFL" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
