@@ -11,22 +11,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link loginFrag#newInstance} factory method to
+ * Use the {@link ForgotpassFrag#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class loginFrag extends Fragment {
-    private EditText etUsername,etPassword;
-    private Button btnLogin;
+public class ForgotpassFrag extends Fragment {
+
     private FirebaseServices fbs;
-    private TextView tv;
+    private EditText etEmail;
+    private Button btnReset ;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,7 +36,7 @@ public class loginFrag extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public loginFrag() {
+    public ForgotpassFrag() {
         // Required empty public constructor
     }
 
@@ -47,11 +46,11 @@ public class loginFrag extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment loginFrag.
+     * @return A new instance of fragment ForgotpassFrag.
      */
     // TODO: Rename and change types and number of parameters
-    public static loginFrag newInstance(String param1, String param2) {
-        loginFrag fragment = new loginFrag();
+    public static ForgotpassFrag newInstance(String param1, String param2) {
+        ForgotpassFrag fragment = new ForgotpassFrag();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -72,47 +71,34 @@ public class loginFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        return inflater.inflate(R.layout.fragment_forgotpass, container, false);
     }
+
 
     @Override
-    public void onStart() {
+    public void onStart(){
         super.onStart();
-        connectComponents();
-    }
-
-    private void connectComponents() {
-
-        etUsername=getView().findViewById(R.id.etUserFL);
-        etPassword=getView().findViewById(R.id.etPassFL);
-        btnLogin=getView().findViewById(R.id.btnLogFL);
-        tv=getView().findViewById(R.id.Signuptv);
-        fbs = FirebaseServices.getInstance() ;
-        tv.setOnClickListener(new View.OnClickListener() {
+        fbs=FirebaseServices.getInstance();
+        etEmail=getView().findViewById(R.id.etResetPass);
+        btnReset =getView().findViewById(R.id.btnResetForgPass);
+        btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frameLayoutMain, new SignUp());
-                ft.commit();
-            }
-        });
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               String username=etUsername.getText().toString();
-               String password=etPassword.getText().toString();
-               fbs.getAuth().signInWithEmailAndPassword(username, password)
-                       .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                fbs.getAuth().sendPasswordResetEmail(etEmail.getText().toString())
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
+                            public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
+                                    Toast.makeText(getActivity(), "Check your Email", Toast.LENGTH_SHORT).show();
 
                                 } else {
-                                    // PUT YOUR CODE HERE
+                                    Toast.makeText(getActivity(), "Failed ,  the email Address you entered is incorrect", Toast.LENGTH_SHORT).show();
                                 }
                             }
+
                         });
             }
         });
     }
 }
+

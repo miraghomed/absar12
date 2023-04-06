@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".loginFrag">
+    tools:context=".LoginFrag">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -48,15 +48,26 @@
             app:layout_constraintTop_toBottomOf="@+id/etPassFL" />
 
         <TextView
-            android:id="@+id/Signuptv"
+            android:id="@+id/signupFL"
+            android:layout_width="94dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:onClick="signupfr"
+            android:text="signup"
+            app:layout_constraintStart_toStartOf="@+id/btnLogFL"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogFL" />
+
+        <TextView
+            android:id="@+id/tvForgotpass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="46dp"
-            android:autoText="false"
-            android:text="SIgnup"
-            app:layout_constraintStart_toStartOf="@+id/btnLogFL"
-            app:layout_constraintTop_toTopOf="@+id/btnLogFL" />
+            android:layout_marginTop="8dp"
+            android:text="forgot password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signupFL" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

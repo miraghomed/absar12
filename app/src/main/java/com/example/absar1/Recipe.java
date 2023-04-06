@@ -1,6 +1,6 @@
 package com.example.absar1;
 
-public class recipe {
+public class Recipe {
     private String name;
     private String ingredient;
     private String calories;
@@ -8,7 +8,7 @@ public class recipe {
     private String instructions;
    // private String image;
 
-    public recipe(String name, String ingredient, String calories, String ptime, String instructions) {
+    public Recipe(String name, String ingredient, String calories, String ptime, String instructions) {
         this.name = name;
         this.ingredient = ingredient;
         this.calories = calories;

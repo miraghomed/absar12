@@ -23,10 +23,10 @@ import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link recipeFrag#newInstance} factory method to
+ * Use the {@link RecipeFrag#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class recipeFrag extends Fragment {
+public class RecipeFrag extends Fragment {
 
     private EditText etName,etCalories,etPTime,etInstructions,etIngredients;
     private ImageView imgRecipe;
@@ -42,7 +42,7 @@ public class recipeFrag extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public recipeFrag() {
+    public RecipeFrag() {
         // Required empty public constructor
     }
 
@@ -55,8 +55,8 @@ public class recipeFrag extends Fragment {
      * @return A new instance of fragment recipeFrag.
      */
     // TODO: Rename and change types and number of parameters
-    public static recipeFrag newInstance(String param1, String param2) {
-        recipeFrag fragment = new recipeFrag();
+    public static RecipeFrag newInstance(String param1, String param2) {
+        RecipeFrag fragment = new RecipeFrag();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -103,8 +103,8 @@ public class recipeFrag extends Fragment {
                 String time=etPTime.getText().toString();
                 String instructions=etInstructions.getText().toString();
                 //String img=imgRecipe.getText().toString();
-                recipe re = new recipe(name,ingredients,calories,time,instructions);
-                Map<String, recipe> Re= new HashMap<>();
+                Recipe re = new Recipe(name,ingredients,calories,time,instructions);
+                Map<String, Recipe> Re= new HashMap<>();
 
                 fbs.getFire().collection("re").document("LA")
                         .set(Re)
