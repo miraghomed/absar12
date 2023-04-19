@@ -116,7 +116,7 @@ public class LoginFrag extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-
+                                    gotoAddRecipe();
                                 } else {
                                     Log.e("Signup: ", task.getException().getMessage());
                                     // PUT YOUR CODE HERE
@@ -130,6 +130,11 @@ public class LoginFrag extends Fragment {
     public void gotoSignup() {
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayoutMain, new SignUp());
+        ft.commit();
+    }
+    public void gotoAddRecipe() {
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayoutMain, new RecipeFrag());
         ft.commit();
     }
 }

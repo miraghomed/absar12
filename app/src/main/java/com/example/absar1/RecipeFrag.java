@@ -17,6 +17,7 @@ import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -106,11 +107,10 @@ public class RecipeFrag extends Fragment {
                 Recipe re = new Recipe(name,ingredients,calories,time,instructions);
                 Map<String, Recipe> Re= new HashMap<>();
 
-                fbs.getFire().collection("re").document("LA")
-                        .set(Re)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                fbs.getFire().collection("recipes").add(re)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
-                            public void onSuccess(Void aVoid) {
+                            public void onSuccess(DocumentReference aVoid) {
                                 Log.d(TAG, "DocumentSnapshot successfully written!");
                             }
                         })
