@@ -3,10 +3,16 @@ package com.example.absar1;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +20,11 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class RecipeRVfrag extends Fragment {
+
+    RecyclerView recyclerView;
+    ArrayList<Recipe> recipeArrayList;
+    RecipeAdapter recipeAdapter;
+    FirebaseServices db;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,6 +34,7 @@ public class RecipeRVfrag extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Object RecipeAdapter;
 
     public RecipeRVfrag() {
         // Required empty public constructor
@@ -53,6 +65,20 @@ public class RecipeRVfrag extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        recyclerView =getView().findViewById(R.id.recyclerview);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        db= FirebaseServices.getInstance();
+        recipeArrayList=new ArrayList<Recipe>();
+        RecipeAdapter= new RecipeAdapter(getActivity(),recipeArrayList);
+
+        EventChangeListener();
+    }
+
+    private void EventChangeListener() {
+
+        db.getStore().collection
     }
 
     @Override
