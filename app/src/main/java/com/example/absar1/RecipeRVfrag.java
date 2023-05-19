@@ -1,16 +1,25 @@
 package com.example.absar1;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -25,6 +34,8 @@ public class RecipeRVfrag extends Fragment {
     ArrayList<Recipe> recipeArrayList;
     RecipeAdapter recipeAdapter;
     FirebaseServices db;
+    ProgressDialog progressDialog;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +45,6 @@ public class RecipeRVfrag extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Object RecipeAdapter;
 
     public RecipeRVfrag() {
         // Required empty public constructor
@@ -65,20 +75,50 @@ public class RecipeRVfrag extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        progressDialog=new ProgressDialog(getActivity());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Fetching Data...");
+        progressDialog.show();
+
+
         recyclerView =getView().findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         db= FirebaseServices.getInstance();
         recipeArrayList=new ArrayList<Recipe>();
-        RecipeAdapter= new RecipeAdapter(getActivity(),recipeArrayList);
+        recipeAdapter= new RecipeAdapter(getActivity(),recipeArrayList);
 
+        recyclerView.setAdapter(recipeAdapter);
         EventChangeListener();
     }
 
     private void EventChangeListener() {
 
-        db.getStore().collection
+        db.getFire().collection("recipes").orderBy("recipeName", Query.Direction.ASCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                        if(error!=null){
+                            if (progressDialog.isShowing())
+                                progressDialog.dismiss();
+                            Log.e("Firestore error",error.getMessage());
+                            return;
+                        }
+
+                        for(DocumentChange dc:value.getDocumentChanges()){
+                            if(dc.getType()==DocumentChange.Type.ADDED){
+                                recipeArrayList.add(dc.getDocument().toObject(Recipe.class));
+                            }
+
+                            recipeAdapter.notifyDataSetChanged();
+                            if (progressDialog.isShowing())
+                                progressDialog.dismiss();
+                        }
+                    }
+                })
     }
 
     @Override
