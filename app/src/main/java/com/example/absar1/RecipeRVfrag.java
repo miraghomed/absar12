@@ -82,16 +82,23 @@ public class RecipeRVfrag extends Fragment {
         progressDialog.show();
 
 
-        recyclerView =getView().findViewById(R.id.recyclerview);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        try {
+            recyclerView =getView().findViewById(R.id.recyclerview);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        db= FirebaseServices.getInstance();
-        recipeArrayList=new ArrayList<Recipe>();
-        recipeAdapter= new RecipeAdapter(getActivity(),recipeArrayList);
+            db= FirebaseServices.getInstance();
+            recipeArrayList=new ArrayList<Recipe>();
+            recipeAdapter= new RecipeAdapter(getActivity(),recipeArrayList);
 
-        recyclerView.setAdapter(recipeAdapter);
-        EventChangeListener();
+            recyclerView.setAdapter(recipeAdapter);
+            EventChangeListener();
+        }
+        catch(Exception ex)
+        {
+            Log.e("Error: ", ex.getMessage());
+        }
+
     }
 
     private void EventChangeListener() {
@@ -101,15 +108,15 @@ public class RecipeRVfrag extends Fragment {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
-                        if(error!=null){
+                        if (error != null) {
                             if (progressDialog.isShowing())
                                 progressDialog.dismiss();
-                            Log.e("Firestore error",error.getMessage());
+                            Log.e("Firestore error", error.getMessage());
                             return;
                         }
 
-                        for(DocumentChange dc:value.getDocumentChanges()){
-                            if(dc.getType()==DocumentChange.Type.ADDED){
+                        for (DocumentChange dc : value.getDocumentChanges()) {
+                            if (dc.getType() == DocumentChange.Type.ADDED) {
                                 recipeArrayList.add(dc.getDocument().toObject(Recipe.class));
                             }
 
@@ -118,8 +125,9 @@ public class RecipeRVfrag extends Fragment {
                                 progressDialog.dismiss();
                         }
                     }
-                })
-    }
+                    });
+       }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
