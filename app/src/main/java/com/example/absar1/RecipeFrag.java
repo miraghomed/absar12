@@ -88,7 +88,7 @@ public class RecipeFrag extends Fragment {
     }
     private void connectComponents() {
         etName =getView().findViewById(R.id.etNameRF);
-        etIngredients =getView().findViewById(R.id.etInstructionRF);
+        etIngredients =getView().findViewById(R.id.etIngredientsRF);
         etCalories=getView().findViewById(R.id.etCaloriesRF);
         etPTime=getView().findViewById(R.id.etPTimeRF);
         etInstructions=getView().findViewById(R.id.etInstructionRF);

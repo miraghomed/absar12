@@ -6,7 +6,11 @@ public class Recipe {
     private String calories;
     private String Ptime;
     private String instructions;
-   // private String image;
+
+// private String image;
+
+    public Recipe() {
+    }
 
     public Recipe(String name, String ingredient, String calories, String ptime, String instructions) {
         this.name = name;

@@ -75,11 +75,16 @@ public class RecipeRVfrag extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+/*
         progressDialog=new ProgressDialog(getActivity());
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Fetching Data...");
-        progressDialog.show();
+        progressDialog.show(); */
 
 
         try {
@@ -98,22 +103,21 @@ public class RecipeRVfrag extends Fragment {
         {
             Log.e("Error: ", ex.getMessage());
         }
-
     }
 
     private void EventChangeListener() {
 
-        db.getFire().collection("recipes").orderBy("recipeName", Query.Direction.ASCENDING)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+        //orderBy("recipeName", Query.Direction.ASCENDING)
+        db.getFire().collection("recipes").addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-
+/*
                         if (error != null) {
                             if (progressDialog.isShowing())
                                 progressDialog.dismiss();
                             Log.e("Firestore error", error.getMessage());
                             return;
-                        }
+                        } */
 
                         for (DocumentChange dc : value.getDocumentChanges()) {
                             if (dc.getType() == DocumentChange.Type.ADDED) {
@@ -121,8 +125,9 @@ public class RecipeRVfrag extends Fragment {
                             }
 
                             recipeAdapter.notifyDataSetChanged();
+                            /*
                             if (progressDialog.isShowing())
-                                progressDialog.dismiss();
+                                progressDialog.dismiss(); */
                         }
                     }
                     });
