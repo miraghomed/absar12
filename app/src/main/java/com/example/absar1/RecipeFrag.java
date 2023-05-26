@@ -1,7 +1,13 @@
 package com.example.absar1;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,9 +24,13 @@ import android.widget.ImageView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +43,7 @@ public class RecipeFrag extends Fragment {
     private ImageView imgRecipe;
     private Button btnADD;
     private FirebaseServices fbs;
+    int SELECT_PICTURE = 200;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -94,7 +105,14 @@ public class RecipeFrag extends Fragment {
         etInstructions=getView().findViewById(R.id.etInstructionRF);
         btnADD=getView().findViewById(R.id.btnAddRF);
         fbs = FirebaseServices.getInstance() ;
-        //imgRecipe=getView().findViewById(R.id.imgRecipeRF);
+        imgRecipe=getView().findViewById(R.id.imgRecipeRF);
+        imgRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO:open gallery and select image
+                openGalleryAndSelectPhoto();
+            }
+        });
         btnADD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,10 +121,9 @@ public class RecipeFrag extends Fragment {
                 String calories=etCalories.getText().toString();
                 String time=etPTime.getText().toString();
                 String instructions=etInstructions.getText().toString();
-                //String img=imgRecipe.getText().toString();
-                Recipe re = new Recipe(name,ingredients,calories,time,instructions);
+                String path=UploadImageToFirebase();
+                Recipe re = new Recipe(name,ingredients,calories,time,instructions,path);
                 Map<String, Recipe> Re= new HashMap<>();
-
                 fbs.getFire().collection("recipes").add(re)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
@@ -124,4 +141,54 @@ public class RecipeFrag extends Fragment {
         });
     }
 
+    private void openGalleryAndSelectPhoto() {
+        // create an instance of the
+        // intent of the type image
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+
+        // pass the constant to compare it
+        // with the returned requestCode
+        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            // compare the resultCode with the
+            // SELECT_PICTURE constant
+            if (requestCode == SELECT_PICTURE) {
+                // Get the url of the image from data
+                Uri selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    // update the preview image in the layout
+                    imgRecipe.setImageURI(selectedImageUri);
+                }
+            }
+        }
+    }
+
+    private String UploadImageToFirebase(){
+        BitmapDrawable drawable = (BitmapDrawable) imgRecipe.getDrawable();
+        Bitmap Image = drawable.getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Image.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        byte[]data= baos.toByteArray();
+        StorageReference ref =fbs.getStorage().getReference("RecipePictures"+ UUID.randomUUID().toString());
+        UploadTask uploadTask =ref.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Error with the picture", e);
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+            }
+        });
+        return ref.getPath();
+    }
 }

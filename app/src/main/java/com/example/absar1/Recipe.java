@@ -7,18 +7,18 @@ public class Recipe {
     private String Ptime;
     private String instructions;
 
-// private String image;
+    private String image;
 
     public Recipe() {
     }
 
-    public Recipe(String name, String ingredient, String calories, String ptime, String instructions) {
+    public Recipe(String name, String ingredient, String calories, String ptime, String instructions,String image) {
         this.name = name;
         this.ingredient = ingredient;
         this.calories = calories;
         this.Ptime = ptime;
         this.instructions = instructions;
-       // this.image = image;
+        this.image = image;
     }
 
 
@@ -60,8 +60,23 @@ public class Recipe {
         this.instructions = instructions;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
-        return "recipe{" + "name='" + name + '\'' + ", calories=" + calories + ", Ptime=" + Ptime + ", instructions='" + instructions + '\''  + ", ingredient='" + ingredient + '\'' + '}';
+        return "Recipe{" +
+                "name='" + name + '\'' +
+                ", ingredient='" + ingredient + '\'' +
+                ", calories='" + calories + '\'' +
+                ", Ptime='" + Ptime + '\'' +
+                ", instructions='" + instructions + '\'' +
+                ", image='" + image + '\'' +
+                '}';
     }
 }
