@@ -91,11 +91,9 @@ public class RecipeRVfrag extends Fragment {
             recyclerView =getView().findViewById(R.id.recyclerview);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
             db= FirebaseServices.getInstance();
             recipeArrayList=new ArrayList<Recipe>();
             recipeAdapter= new RecipeAdapter(getActivity(),recipeArrayList);
-
             recyclerView.setAdapter(recipeAdapter);
             EventChangeListener();
         }

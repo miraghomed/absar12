@@ -81,11 +81,10 @@ public class LoginFrag extends Fragment {
     public void onStart() {
         super.onStart();
         connectComponents();
-        /*
         if (fbs.getAuth().getCurrentUser() != null)
         {
-            gotoRecipeList();
-        } */
+            gotoAddRecipe();
+        }
     }
 
     private void connectComponents() {
@@ -122,7 +121,7 @@ public class LoginFrag extends Fragment {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     gotoRecipeList();
-                                    //gotoAddRecipe();
+                                  // gotoAddRecipe();
                                 } else {
                                     Log.e("Signup: ", task.getException().getMessage());
                                     // PUT YOUR CODE HERE

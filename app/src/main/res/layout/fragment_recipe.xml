@@ -57,13 +57,13 @@
 
         <ImageView
             android:id="@+id/imgRecipeRF"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="41dp"
-            android:layout_marginTop="73dp"
+            android:layout_width="154dp"
+            android:layout_height="146dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="76dp"
             app:layout_constraintStart_toStartOf="@+id/etNameRF"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@drawable/recipepic" />
 
         <Button
             android:id="@+id/btnAddRF"

@@ -12,6 +12,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -128,6 +129,7 @@ public class RecipeFrag extends Fragment {
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference aVoid) {
+                                gotoAddRecipe();
                                 Log.d(TAG, "DocumentSnapshot successfully written!");
                             }
                         })
@@ -190,5 +192,12 @@ public class RecipeFrag extends Fragment {
             }
         });
         return ref.getPath();
+    }
+
+    public void gotoAddRecipe()
+    {
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayoutMain, new RecipeRVfrag());
+        ft.commit();
     }
 }
