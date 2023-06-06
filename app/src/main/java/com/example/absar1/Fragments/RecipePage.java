@@ -1,4 +1,4 @@
-package com.example.absar1;
+package com.example.absar1.Fragments;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,16 +9,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.absar1.R;
+import com.example.absar1.classes.FirebaseServices;
+import com.example.absar1.classes.Recipe;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.model.Document;
 import com.google.firebase.storage.StorageReference;
 
 /**

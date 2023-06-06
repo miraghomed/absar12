@@ -1,4 +1,4 @@
-package com.example.absar1;
+package com.example.absar1.classes;
 
 public class Recipe {
     private String name;

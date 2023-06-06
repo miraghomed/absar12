@@ -1,4 +1,4 @@
-package com.example.absar1;
+package com.example.absar1.Fragments;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,21 +9,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.absar1.R;
+import com.example.absar1.classes.Recipe;
+
 import java.util.ArrayList;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> {
+public class FavoriteRVFrag extends RecyclerView.Adapter<FavoriteRVFrag.MyViewHolder> {
 
     Context context;
     ArrayList<Recipe> recipeArrayList;
 
-    public HomeAdapter(Context context, ArrayList<Recipe> recipeArrayList) {
+    public FavoriteRVFrag(Context context, ArrayList<Recipe> recipeArrayList) {
         this.context = context;
         this.recipeArrayList = recipeArrayList;
     }
 
     @NonNull
     @Override
-    public HomeAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FavoriteRVFrag.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View v= LayoutInflater.from(context).inflate(R.layout.recipeicon,parent,false);
         return new MyViewHolder(v);
