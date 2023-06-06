@@ -32,9 +32,13 @@ public class RecipeRVfrag extends Fragment {
 
     RecyclerView recyclerView;
     ArrayList<Recipe> recipeArrayList;
+
+    ArrayList<String> recipepathArrayList;
+
     RecipeAdapter recipeAdapter;
     FirebaseServices db;
     ProgressDialog progressDialog;
+
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -93,7 +97,8 @@ public class RecipeRVfrag extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             db= FirebaseServices.getInstance();
             recipeArrayList=new ArrayList<Recipe>();
-            recipeAdapter= new RecipeAdapter(getActivity(),recipeArrayList);
+            recipepathArrayList=new ArrayList<String>();
+            recipeAdapter= new RecipeAdapter(getActivity(),recipeArrayList,recipepathArrayList);
             recyclerView.setAdapter(recipeAdapter);
             EventChangeListener();
         }
@@ -120,6 +125,7 @@ public class RecipeRVfrag extends Fragment {
                         for (DocumentChange dc : value.getDocumentChanges()) {
                             if (dc.getType() == DocumentChange.Type.ADDED) {
                                 recipeArrayList.add(dc.getDocument().toObject(Recipe.class));
+                                recipepathArrayList.add(dc.getDocument().getId());
                             }
 
                             recipeAdapter.notifyDataSetChanged();

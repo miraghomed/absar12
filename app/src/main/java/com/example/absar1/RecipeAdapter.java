@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -26,10 +27,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
     Context context;
     FirebaseServices fbs;
     ArrayList<Recipe> recipeArrayList;
+    ArrayList<String> recipepathArrayList;
 
-    public RecipeAdapter(Context context, ArrayList<Recipe> recipeArrayList) {
+    public RecipeAdapter(Context context, ArrayList<Recipe> recipeArrayList,ArrayList<String> recipepathArrayList) {
         this.context = context;
         this.recipeArrayList = recipeArrayList;
+        this.recipepathArrayList=recipepathArrayList;
     }
 
     @NonNull
@@ -59,6 +62,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
             @Override
             public void onFailure(@NonNull Exception e) {
                 // Handle any errors that occur when downloading the image
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppCompatActivity activity=(AppCompatActivity) context;
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutMain,new RecipePage(recipepathArrayList.get(position))).addToBackStack(null).commit();
             }
         });
     }

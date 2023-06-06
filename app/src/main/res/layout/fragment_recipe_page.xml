@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecipeHome">
+    tools:context=".RecipePage">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,50 +13,63 @@
         <ImageView
             android:id="@+id/RecipeImage"
             android:layout_width="185dp"
-            android:layout_height="166dp"
-            tools:layout_editor_absoluteX="113dp"
-            tools:layout_editor_absoluteY="115dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/CaloriesTVcard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/RecipeNameTVcard"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/RecipeNameTVcard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
             android:text="name"
-            tools:layout_editor_absoluteX="181dp"
-            tools:layout_editor_absoluteY="70dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/IngredientsTVcard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="30dp"
             android:text="ingredients"
-            tools:layout_editor_absoluteX="168dp"
-            tools:layout_editor_absoluteY="359dp" />
+            app:layout_constraintEnd_toStartOf="@+id/PTimeTVcard"
+            app:layout_constraintTop_toBottomOf="@+id/PTimeTVcard" />
 
         <TextView
             android:id="@+id/CaloriesTVcard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginBottom="175dp"
             android:text="calories"
-            tools:layout_editor_absoluteX="72dp"
-            tools:layout_editor_absoluteY="312dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/PTimeTVcard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="31dp"
             android:text="prep time"
-            tools:layout_editor_absoluteX="268dp"
-            tools:layout_editor_absoluteY="312dp" />
+            app:layout_constraintEnd_toEndOf="@+id/RecipeImage"
+            app:layout_constraintStart_toEndOf="@+id/RecipeImage"
+            app:layout_constraintTop_toBottomOf="@+id/RecipeImage" />
 
         <TextView
             android:id="@+id/InstructionsTVcard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="59dp"
             android:text="Instructions"
-            tools:layout_editor_absoluteX="168dp"
-            tools:layout_editor_absoluteY="428dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/IngredientsTVcard" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

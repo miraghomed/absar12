@@ -83,7 +83,8 @@ public class LoginFrag extends Fragment {
         connectComponents();
         if (fbs.getAuth().getCurrentUser() != null)
         {
-            gotoAddRecipe();
+           // gotoAddRecipe();
+            gotoRecipeList();
         }
     }
 

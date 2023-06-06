@@ -16,8 +16,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="58dp"
             android:ems="10"
+            android:hint="Name"
             android:inputType="textPersonName"
-            android:text="Name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imgRecipeRF" />
@@ -28,8 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="68dp"
             android:ems="10"
+            android:hint="Calories"
             android:inputType="textPersonName"
-            android:text="Calories"
             app:layout_constraintStart_toStartOf="@+id/etNameRF"
             app:layout_constraintTop_toBottomOf="@+id/etNameRF" />
 
@@ -39,8 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:ems="10"
+            android:hint="Instructions"
             android:inputType="textPersonName"
-            android:text="Instructions"
             app:layout_constraintStart_toStartOf="@+id/etPTimeRF"
             app:layout_constraintTop_toBottomOf="@+id/etPTimeRF" />
 
@@ -50,8 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:ems="10"
+            android:hint="Preparation Time"
             android:inputType="textPersonName"
-            android:text="Preparation Time"
             app:layout_constraintStart_toStartOf="@+id/etCaloriesRF"
             app:layout_constraintTop_toBottomOf="@+id/etCaloriesRF" />
 
@@ -82,8 +82,8 @@
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="9dp"
             android:ems="10"
+            android:hint="Ingredients"
             android:inputType="textPersonName"
-            android:text="Ingredients"
             app:layout_constraintBottom_toTopOf="@+id/etCaloriesRF"
             app:layout_constraintEnd_toEndOf="@+id/etCaloriesRF" />
     </androidx.constraintlayout.widget.ConstraintLayout>
