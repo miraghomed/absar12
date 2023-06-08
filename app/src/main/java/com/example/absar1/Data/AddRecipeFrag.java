@@ -1,4 +1,4 @@
-package com.example.absar1.Fragments;
+package com.example.absar1.Data;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.absar1.Fragments.RecipeRVfrag;
 import com.example.absar1.R;
 import com.example.absar1.classes.FirebaseServices;
 import com.example.absar1.classes.Recipe;
@@ -37,10 +38,10 @@ import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link RecipeFrag#newInstance} factory method to
+ * Use the {@link AddRecipeFrag#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RecipeFrag extends Fragment {
+public class AddRecipeFrag extends Fragment {
 
     private EditText etName,etCalories,etPTime,etInstructions,etIngredients;
     private ImageView imgRecipe;
@@ -57,7 +58,7 @@ public class RecipeFrag extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public RecipeFrag() {
+    public AddRecipeFrag() {
         // Required empty public constructor
     }
 
@@ -70,8 +71,8 @@ public class RecipeFrag extends Fragment {
      * @return A new instance of fragment recipeFrag.
      */
     // TODO: Rename and change types and number of parameters
-    public static RecipeFrag newInstance(String param1, String param2) {
-        RecipeFrag fragment = new RecipeFrag();
+    public static AddRecipeFrag newInstance(String param1, String param2) {
+        AddRecipeFrag fragment = new AddRecipeFrag();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

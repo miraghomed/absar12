@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.absar1.Data.AddRecipeFrag;
 import com.example.absar1.R;
 import com.example.absar1.classes.FirebaseServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -141,7 +142,7 @@ public class LoginFrag extends Fragment {
     }
     public void gotoAddRecipe() {
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayoutMain, new RecipeFrag());
+        ft.replace(R.id.frameLayoutMain, new AddRecipeFrag());
         ft.commit();
     }
     public void gotoRecipeList() {

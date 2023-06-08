@@ -88,7 +88,7 @@ public class RecipeRVfrag extends Fragment {
 /*
         progressDialog=new ProgressDialog(getActivity());
         progressDialog.setCancelable(false);
-        progressDialog.setMessage("Fetching Data...");
+        progressDialog.setMessage("Fetching com.example.absar1.Data...");
         progressDialog.show(); */
 
 

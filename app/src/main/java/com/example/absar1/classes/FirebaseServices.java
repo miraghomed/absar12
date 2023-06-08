@@ -20,7 +20,8 @@ public class FirebaseServices {
     }
     public FirebaseServices() {
         auth = FirebaseAuth.getInstance();
-        fire = FirebaseFirestore.getInstance(); storage = FirebaseStorage.getInstance();
+        fire = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
     }
     public static FirebaseServices getInstance() {
         if (instance == null)
