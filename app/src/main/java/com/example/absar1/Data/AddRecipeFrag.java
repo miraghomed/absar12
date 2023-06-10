@@ -127,7 +127,6 @@ public class AddRecipeFrag extends Fragment {
                 String instructions=etInstructions.getText().toString();
                 String path=UploadImageToFirebase();
                 Recipe re = new Recipe(name,ingredients,calories,time,instructions,path);
-                Map<String, Recipe> Re= new HashMap<>();
                 fbs.getFire().collection("recipes").add(re)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override

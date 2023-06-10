@@ -12,15 +12,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.bumptech.glide.Glide;
 import com.example.absar1.R;
 import com.example.absar1.classes.FirebaseServices;
 import com.example.absar1.classes.Recipe;
+import com.example.absar1.classes.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,8 +46,10 @@ public class RecipePage extends Fragment {
     private String mParam1;
     private String mParam2;
     private TextView etName,etCalories,etPTime,etInstructions,etIngredients;
-    ImageView imgRecipe;
+    ImageView imgRecipe,fav;
     private FirebaseServices fbs;
+
+    User user;
     String path;
     Recipe recipe;
     public RecipePage(String path) {
@@ -101,7 +111,30 @@ public class RecipePage extends Fragment {
 
                     }
                 });
+        Query query = fbs.getFire().collection("Users").whereEqualTo("email", fbs.getAuth().getCurrentUser().getEmail());
+        query.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
 
+
+                for (QueryDocumentSnapshot document : querySnapshot) {
+                    this.user = document.toObject(User.class);
+                    check();
+                }
+            } else {
+                Exception e = task.getException();
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void check() {
+        ArrayList<String>favo=user.getFavoriteArrayList();
+        for (int i = 0; i < favo.size(); i++){
+            if (favo.get(i).equals(path)){
+                fav.setImageResource(R.drawable.fullheart);
+            }
+        }
     }
 
     private void connectcomp() {
@@ -130,5 +163,12 @@ public class RecipePage extends Fragment {
         etCalories.setText(recipe.getCalories());
         etPTime.setText(recipe.getPtime());
         etInstructions.setText(recipe.getInstructions());
+        fav=getView().findViewById(R.id.imageView);
+        fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if()
+            }
+        });
     }
 }

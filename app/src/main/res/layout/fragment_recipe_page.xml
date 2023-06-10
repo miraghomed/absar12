@@ -66,10 +66,29 @@
             android:id="@+id/InstructionsTVcard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="59dp"
+            android:layout_marginBottom="40dp"
             android:text="Instructions"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/IngredientsTVcard" />
+
+        <TextView
+            android:id="@+id/instructionsTVcard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="72dp"
+            android:text="Instructions:"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/IngredientsTVcard" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="75dp"
+            android:layout_height="66dp"
+            android:src="@drawable/heart"
+            tools:layout_editor_absoluteX="334dp"
+            tools:layout_editor_absoluteY="1dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

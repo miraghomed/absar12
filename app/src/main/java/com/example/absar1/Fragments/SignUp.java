@@ -1,9 +1,12 @@
 package com.example.absar1.Fragments;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,10 +19,17 @@ import android.widget.Toast;
 
 import com.example.absar1.R;
 import com.example.absar1.classes.FirebaseServices;
+import com.example.absar1.classes.Recipe;
+import com.example.absar1.classes.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.firestore.DocumentReference;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -117,7 +127,22 @@ public class SignUp extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // PUT YOUR CODE HERE
+                                    User user=new User(email);
+                                    fbs.getFire().collection("Users").add(user)
+                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference aVoid) {
+                                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                                    ft.replace(R.id.frameLayoutMain, new RecipeRVfrag());
+                                                    ft.commit();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.w(TAG, "Error writing document", e);
+                                                }
+                                            });
                                 } else {
                                     Log.e("Signup: ", task.getException().getMessage());
                                     // PUT YOUR CODE HERE

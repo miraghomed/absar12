@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,7 +33,9 @@ public class FavoriteRVFrag extends Fragment {
     ArrayList<Recipe> favoriteArrayList;
     RecipeAdapter recipeAdapter;
     FirebaseServices db;
+
     ArrayList<String> recipepathArrayList;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,7 +80,7 @@ public class FavoriteRVFrag extends Fragment {
         super.onStart();
 
 
-        try {
+
             recyclerView =getView().findViewById(R.id.recyclerview);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -86,15 +90,13 @@ public class FavoriteRVFrag extends Fragment {
             recipeAdapter= new RecipeAdapter(getActivity(),favoriteArrayList,recipepathArrayList);
             recyclerView.setAdapter(recipeAdapter);
             EventChangeListener();
-        }
-        catch(Exception ex)
-        {
-            Log.e("Error: ", ex.getMessage());
-        }
+
+
+
     }
 
     private void EventChangeListener() {
-        db.getFire().collection("recipes").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.getFire().collection("users").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 /*
