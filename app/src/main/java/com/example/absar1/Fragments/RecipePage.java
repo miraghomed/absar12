@@ -4,8 +4,10 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +48,7 @@ public class RecipePage extends Fragment {
     private String mParam1;
     private String mParam2;
     private TextView etName,etCalories,etPTime,etInstructions,etIngredients;
-    ImageView imgRecipe,fav;
+    ImageView imgRecipe,fav,back;
     private FirebaseServices fbs;
 
     User user;
@@ -164,10 +166,66 @@ public class RecipePage extends Fragment {
         etPTime.setText(recipe.getPtime());
         etInstructions.setText(recipe.getInstructions());
         fav=getView().findViewById(R.id.imageView);
+        back=getView().findViewById(R.id.imageViewBack);
         fav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if()
+                if (fav.getDrawable().getConstantState().equals(ContextCompat.getDrawable(getContext(), R.drawable.fullheart).getConstantState())) {
+                    Query query = fbs.getFire().collection("Users").whereEqualTo("email", fbs.getAuth().getCurrentUser().getEmail());
+                    query.get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+
+
+                            for (QueryDocumentSnapshot document : querySnapshot) {
+                                ArrayList<String> favo=user.getFavoriteArrayList();
+                                favo.remove(path);
+                                document.getReference().update("favoriteArrayList", favo)
+                                        .addOnSuccessListener(aVoid -> {
+                                            System.out.println("ArrayList updated successfully.");
+                                            fav.setImageResource(R.drawable.heart);
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            System.out.println("Error updating ArrayList: " + e.getMessage());
+                                        });
+                            }
+                        } else {
+                            Exception e = task.getException();
+                            e.printStackTrace();
+                        }
+                    });
+                }
+                else {
+                    Query query = fbs.getFire().collection("Users").whereEqualTo("email", fbs.getAuth().getCurrentUser().getEmail());
+                    query.get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+
+
+                            for (QueryDocumentSnapshot document : querySnapshot) {
+                                ArrayList<String> favo=user.getFavoriteArrayList();
+                                favo.add(path);
+                                document.getReference().update("favoriteArrayList", favo)
+                                        .addOnSuccessListener(aVoid -> {
+                                            System.out.println("ArrayList updated successfully.");
+                                            fav.setImageResource(R.drawable.fullheart);
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            System.out.println("Error updating ArrayList: " + e.getMessage());
+                                        });
+                            }
+                        } else {
+                            Exception e = task.getException();
+                            e.printStackTrace();
+                        }
+                    });
+                }
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
             }
         });
     }

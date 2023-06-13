@@ -5,36 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="153dp"
-        android:layout_height="56dp"
-        app:srcCompat="@drawable/heart" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="354dp"
-            android:layout_height="204dp"
-            android:layout_marginBottom="40dp"
+        <TextView
+            android:id="@+id/RecipeN"
+            android:layout_width="64dp"
+            android:layout_height="21dp"
+            android:text="name"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="55dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/RecipePic" />
 
-            <ImageView
-                android:id="@+id/RecipePic"
-                android:layout_width="172dp"
-                android:layout_height="150dp"
-                tools:srcCompat="@drawable/recipepic" />
-
-            <TextView
-                android:id="@+id/RecipeN"
-                android:layout_width="60dp"
-                android:layout_height="0dp"
-                android:text="name" />
-
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/RecipePic"
+            android:layout_width="192dp"
+            android:layout_height="188dp"
+            android:layout_marginTop="53dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/RecipeN"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/recipepic" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

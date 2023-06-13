@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.absar1.R;
 import com.example.absar1.classes.FirebaseServices;
@@ -33,7 +35,7 @@ public class RecipeRVfrag extends Fragment {
 
     RecyclerView recyclerView;
     ArrayList<Recipe> recipeArrayList;
-
+    ImageView favorite;
     ArrayList<String> recipepathArrayList;
 
     RecipeAdapter recipeAdapter;
@@ -92,7 +94,6 @@ public class RecipeRVfrag extends Fragment {
         progressDialog.show(); */
 
 
-        try {
             recyclerView =getView().findViewById(R.id.recyclerview);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -101,12 +102,21 @@ public class RecipeRVfrag extends Fragment {
             recipepathArrayList=new ArrayList<String>();
             recipeAdapter= new RecipeAdapter(getActivity(),recipeArrayList,recipepathArrayList);
             recyclerView.setAdapter(recipeAdapter);
+            favorite=getView().findViewById(R.id.GotoFav);
             EventChangeListener();
-        }
-        catch(Exception ex)
-        {
-            Log.e("Error: ", ex.getMessage());
-        }
+
+            favorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    gotoFavorite();
+                }
+            });
+    }
+
+    private void gotoFavorite() {
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayoutMain, new FavoriteRVFrag());
+        ft.commit();
     }
 
     private void EventChangeListener() {

@@ -1,14 +1,6 @@
 package com.example.absar1.Fragments;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,26 +8,39 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.example.absar1.R;
 import com.example.absar1.classes.FirebaseServices;
 import com.example.absar1.classes.Recipe;
 import com.example.absar1.classes.RecipeAdapter;
+import com.example.absar1.classes.User;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link FavoriteRVFrag#newInstance} factory method to
+ * create an instance of this fragment.
+ */
 public class FavoriteRVFrag extends Fragment {
-
     RecyclerView recyclerView;
     ArrayList<Recipe> favoriteArrayList;
     RecipeAdapter recipeAdapter;
-    FirebaseServices db;
-
-    ArrayList<String> recipepathArrayList;
-
+    FirebaseServices fbs;
+    User user;
+    ArrayList<String> recipepathArrayList,finalpaths;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,7 +61,7 @@ public class FavoriteRVFrag extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Reciperv.
+     * @return A new instance of fragment FavoriteRVFragxml.
      */
     // TODO: Rename and change types and number of parameters
     public static FavoriteRVFrag newInstance(String param1, String param2) {
@@ -67,6 +72,7 @@ public class FavoriteRVFrag extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,55 +85,68 @@ public class FavoriteRVFrag extends Fragment {
     public void onStart() {
         super.onStart();
 
+        Query query = fbs.getFire().collection("Users").whereEqualTo("email", fbs.getAuth().getCurrentUser().getEmail());
+        query.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot querySnapshot = task.getResult();
 
 
-            recyclerView =getView().findViewById(R.id.recyclerview);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            db= FirebaseServices.getInstance();
-            favoriteArrayList=new ArrayList<Recipe>();
-            recipepathArrayList=new ArrayList<String>();
-            recipeAdapter= new RecipeAdapter(getActivity(),favoriteArrayList,recipepathArrayList);
-            recyclerView.setAdapter(recipeAdapter);
-            EventChangeListener();
+                for (QueryDocumentSnapshot document : querySnapshot) {
+                    this.user = document.toObject(User.class);
+                    continueto();
+                }
+            } else {
+                Exception e = task.getException();
+                e.printStackTrace();
+            }
+        });
+
+        recyclerView =getView().findViewById(R.id.recyclerFav);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        fbs= FirebaseServices.getInstance();
+        favoriteArrayList=new ArrayList<Recipe>();
+        recipepathArrayList=new ArrayList<String>();
+        EventChangeListener();
 
 
 
     }
 
+    private void continueto() {
+        ArrayList<String> paths= user.getFavoriteArrayList();
+        int i=0;
+        while (paths.size()>i) {
+            DocumentReference recipeRef = fbs.getFire().collection("recipes").document(paths.get(i));
+            recipeRef.get()
+                    .addOnSuccessListener((DocumentSnapshot documentSnapshot) -> {
+                        if (documentSnapshot.exists()) {
+                            Recipe recipe = documentSnapshot.toObject(Recipe.class);
+                            favoriteArrayList.add(recipe);
+                            finalpaths.add(documentSnapshot.getId());
+                            EventChangeListener();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
+            i++;
+        }
+    }
+
     private void EventChangeListener() {
-        db.getFire().collection("users").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-/*
-                        if (error != null) {
-                            if (progressDialog.isShowing())
-                                progressDialog.dismiss();
-                            Log.e("Firestore error", error.getMessage());
-                            return;
-                        } */
-
-                for (DocumentChange dc : value.getDocumentChanges()) {
-                    if (dc.getType() == DocumentChange.Type.ADDED) {
-                        favoriteArrayList.add(dc.getDocument().toObject(Recipe.class));
-                        recipepathArrayList.add(dc.getDocument().getId());
-                    }
-
-                    recipeAdapter.notifyDataSetChanged();
-
-                }
-            }
-        });
+        if(finalpaths.size()==user.getFavoriteArrayList().size()) {
+            recipeAdapter=new RecipeAdapter(getContext(),favoriteArrayList,finalpaths);
+            recyclerView.setAdapter(recipeAdapter);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reciperv, container, false);
+        return inflater.inflate(R.layout.fragment_favorite_r_v_frag, container, false);
     }
 }
-
-
-
-
