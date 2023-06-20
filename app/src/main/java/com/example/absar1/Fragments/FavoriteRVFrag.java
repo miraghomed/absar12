@@ -84,7 +84,7 @@ public class FavoriteRVFrag extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
+        fbs=FirebaseServices.getInstance();
         Query query = fbs.getFire().collection("Users").whereEqualTo("email", fbs.getAuth().getCurrentUser().getEmail());
         query.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

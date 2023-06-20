@@ -42,7 +42,7 @@ public class SignUp extends Fragment {
     private EditText etEmailS,etPasswordS;
     private Button  btnLogin;
     private FirebaseServices fbs;
-    private TextView tvSignup;
+    private Button btnSignup;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -100,9 +100,9 @@ public class SignUp extends Fragment {
     private void connectComponents() {
         etEmailS=getView().findViewById(R.id.etEmailSF);
         etPasswordS=getView().findViewById(R.id.etPasswordSF);
-        tvSignup=getView().findViewById(R.id.btnSF);
+        btnSignup=getView().findViewById(R.id.btnSF);
         fbs = FirebaseServices.getInstance() ;
-        tvSignup.setOnClickListener(new View.OnClickListener() {
+        btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String email=etEmailS.getText().toString();
@@ -112,7 +112,7 @@ public class SignUp extends Fragment {
                     Toast.makeText(getActivity(), "some fields are missing!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                /*
+/*
                 if (!isEmailValid(email)){
                     Toast.makeText(getActivity(), "email is incorrect", Toast.LENGTH_SHORT).show();
                     return;
