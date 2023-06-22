@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.absar1.R;
 import com.example.absar1.classes.FirebaseServices;
@@ -37,7 +38,7 @@ public class RecipeRVfrag extends Fragment {
     ArrayList<Recipe> recipeArrayList;
     ImageView favorite;
     ArrayList<String> recipepathArrayList;
-
+    TextView signOut;
     RecipeAdapter recipeAdapter;
     FirebaseServices db;
     ProgressDialog progressDialog;
@@ -111,6 +112,20 @@ public class RecipeRVfrag extends Fragment {
                     gotoFavorite();
                 }
             });
+        signOut=getView().findViewById(R.id.signOut);
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.getAuth().signOut();
+                gotoLogin();
+            }
+        });
+    }
+
+    private void gotoLogin() {
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayoutMain, new LoginFrag());
+        ft.commit();
     }
 
     private void gotoFavorite() {

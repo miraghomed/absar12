@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,9 +12,24 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerFav"
-            android:layout_width="411dp"
-            android:layout_height="665dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="64dp" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/backArrow" />
+
+        <ImageView
+            android:id="@+id/backArrow"
+            android:layout_width="65dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="28dp"
+            android:src="@drawable/back"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerFav"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

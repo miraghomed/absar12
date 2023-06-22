@@ -5,19 +5,25 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.absar1.R;
 import com.example.absar1.classes.FirebaseServices;
 import com.example.absar1.classes.Recipe;
 import com.example.absar1.classes.RecipeAdapter;
 import com.example.absar1.classes.User;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -41,6 +47,8 @@ public class FavoriteRVFrag extends Fragment {
     FirebaseServices fbs;
     User user;
     ArrayList<String> recipepathArrayList,finalpaths;
+    TextView signOut;
+    ImageView backArrow;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -107,15 +115,24 @@ public class FavoriteRVFrag extends Fragment {
         fbs= FirebaseServices.getInstance();
         favoriteArrayList=new ArrayList<Recipe>();
         recipepathArrayList=new ArrayList<String>();
-        EventChangeListener();
-
-
+        backArrow=getView().findViewById(R.id.backArrow);
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayoutMain, new RecipeRVfrag());
+                ft.commit();
+            }
+        });
 
     }
+
+
 
     private void continueto() {
         ArrayList<String> paths= user.getFavoriteArrayList();
         int i=0;
+        finalpaths=new ArrayList<String>();
         while (paths.size()>i) {
             DocumentReference recipeRef = fbs.getFire().collection("recipes").document(paths.get(i));
             recipeRef.get()
