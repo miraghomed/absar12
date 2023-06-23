@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ public class SignUp extends Fragment {
     private Button  btnLogin;
     private FirebaseServices fbs;
     private Button btnSignup;
+    ImageView back;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -102,6 +104,16 @@ public class SignUp extends Fragment {
         etPasswordS=getView().findViewById(R.id.etPasswordSF);
         btnSignup=getView().findViewById(R.id.btnSF);
         fbs = FirebaseServices.getInstance() ;
+        back=getView().findViewById(R.id.backLogin);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayoutMain, new LoginFrag());
+                ft.commit();
+            }
+        });
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

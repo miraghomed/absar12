@@ -4,12 +4,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.absar1.R;
@@ -27,6 +29,7 @@ public class ForgotpassFrag extends Fragment {
     private FirebaseServices fbs;
     private EditText etEmail;
     private Button btnReset ;
+    ImageView back;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,6 +85,16 @@ public class ForgotpassFrag extends Fragment {
         fbs=FirebaseServices.getInstance();
         etEmail=getView().findViewById(R.id.etResetPass);
         btnReset =getView().findViewById(R.id.btnResetForgPass);
+        back=getView().findViewById(R.id.backLogin2);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayoutMain, new LoginFrag());
+                ft.commit();
+            }
+        });
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
