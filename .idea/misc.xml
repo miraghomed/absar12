@@ -18,6 +18,9 @@
         <entry key="..\:/Users/DELL/AndroidStudioProjects/absar123/app/src/main/res/layout/fragment_recipe_page.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/absar123/app/src/main/res/layout/fragment_reciperv.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/absar123/app/src/main/res/layout/recipeicon.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/absar12345/app/src/main/res/layout/fragment_recipe.xml" value="0.2" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/absar12345/app/src/main/res/layout/fragment_recipe_page.xml" value="0.264" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/absar12345/app/src/main/res/layout/recipeicon.xml" value="0.2388888888888889" />
         <entry key="..\:/Users/userx/AndroidStudioProjects/absar1/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/userx/AndroidStudioProjects/absar1/app/src/main/res/layout/fragment_login.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/userx/AndroidStudioProjects/absar1/app/src/main/res/layout/fragment_recipe.xml" value="0.36666666666666664" />
@@ -25,7 +28,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
